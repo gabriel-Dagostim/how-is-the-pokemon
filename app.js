@@ -1,12 +1,21 @@
-//https://pokeapi.co/api/v2/pokemon/pikachu
+//https://pokeapi.co/api/v2/pokemon/(Numero da pokedex)
+
+var num1 = 0
+var num2 = 0
+
 
 function load(){
    
 
+    if(num1 == 0){
+        alert("Selecione uma geração")
+    }else{
+        clickbotaS()
+    }
 
-
-    idescolha = Math.floor(Math.random() * ((1 - 150 + 1 )* -1 ));
-    let url = `https://pokeapi.co/api/v2/pokemon/${idescolha}` 
+    idEscolha = Math.floor(Math.random() * (num2 - num1 + 1 ) + num1);
+   
+    let url = `https://pokeapi.co/api/v2/pokemon/${idEscolha}` 
 
     
     fetch(url)
@@ -23,71 +32,38 @@ function load(){
     
     .then((data)=> {
     
-        console.clear();
-        console.log(data);
+        console.clear();    //limpa o console antes de aparecer o pokemon
+        console.log(data);  //Aparece o pokemon escolhido no console
         
-      
-    
-        
-
-
-    
         document.getElementById('numero').innerHTML = "N°" + data['id'];
         let img = data['sprites']['front_default'];
-        document.getElementById('pic1').setAttribute('src', img);
-
-
-       
-        
-
-
-
-
-
-
-    
+        document.getElementById('pic1').setAttribute('src', img);    
     })
-    
-    
-    
     
     .catch((erro) => {
         console.log("erro: " + erro);
-    });
-
-    
-    clickbotaS()
-
-
-   
-    
-}
+     });   
+    }
    
 
 
     
     document.getElementById('botaoS').onclick = load;
-    
-    
+
     function clickbotaS(){
-     
+        
     document.getElementById("IdDivAdivinha").style.display = "block";
     document.getElementById("botaoS").style.display = "none";
-
-
-
-    
-   
     }
 
 
     function varia(){
 
-        let idescolha = document.getElementById('numero').innerHTML
+        let Idchoice = document.getElementById('numero').innerHTML
 
-        let teste2 = (idescolha.substring(2,6))
+        let PokedexNumber = (Idchoice.substring(2,6))
         
-        let url = `https://pokeapi.co/api/v2/pokemon/${teste2}` 
+        let url = `https://pokeapi.co/api/v2/pokemon/${PokedexNumber}` 
 
         fetch(url)
         .then((Response) =>{
@@ -99,150 +75,102 @@ function load(){
         
         .then((data)=> {
         
-            console.clear();
-            console.log(data);
+            console.clear(); //limpa o console antes de aparecer o pokemon
+            console.log(data); //Aparece o pokemon escolhido no console
             
-          
-        
-            
-        
+
             document.getElementById('numero').innerHTML = "N°" + data['id'];
             let img = data['sprites']['front_default'];
             document.getElementById('pic1').setAttribute('src', img);
     
-                var nomepoke = data['name']
+                var NamePoke = data['name']
+                var writed = document.getElementById("input").value
 
-                var colocou = document.getElementById("input").value
-
-             if(nomepoke != colocou){
-                
-                      
-              
-
-                
-
-             
-
-
-                var acc3 = parseInt(document.getElementById("errou").innerHTML)
-
+             if(NamePoke != writed){                         
             
-
-            
-
-                var acc4 = acc3 + 1
-
-                var acc3 = document.getElementById("errou").innerHTML =`  ${acc4}`
-
-
-
-
-
-                document.getElementById('pic1').style.color = 'black';
-
-
-
-
-             }else{
-                
-
-                
-
-                var acc = parseInt(document.getElementById("acertos").innerHTML)
-
-            
-
-            
-
-                var acc2 = acc + 1
-
-                var acc = document.getElementById("acertos").innerHTML =`  ${acc2}`
-
-
+                var GetNP = parseInt(document.getElementById("errou").innerHTML)
+                var GetNPN = GetNP + 1
+                var GetNP = document.getElementById("errou").innerHTML =`  ${GetNPN}`
                 load()
-             }
-              
-    
-           
-    
-        
-        })
-        
-         
-  
-  
-  
-      }
+             }else{
+
+                var GetAcc = parseInt(document.getElementById("acertos").innerHTML)
+                var CountAcc = GetAcc + 1
+                var GetAcc = document.getElementById("acertos").innerHTML =`  ${CountAcc}`
+                document.getElementById("input").value = ""
+                load()
+         }
+          }
+           )
+            }
 
 
-    function pularAC(){
-
-
-
-        var ppp = parseInt(document.getElementById("pulou").innerHTML)
-
-            
-
-            
-
-        var aaaaa = ppp + 1
-
-        var ppp = document.getElementById("pulou").innerHTML =`  ${aaaaa}`
+    function skip(){
 
 
 
+        var DidHeJump = parseInt(document.getElementById("pulou").innerHTML)
 
+            document.getElementById("input").value = ""           
 
-load()
+        var CountSkip = DidHeJump + 1
+        var DidHeJump = document.getElementById("pulou").innerHTML =`  ${CountSkip}`
 
+            load()
     }
 
 
-    function gen1(num1, num2){
-      
+    function generation1(){
 
+        num1 = 1
+        num2 = 151
+        load()
+    };
 
-            numm01 = parseInt(num1);
-            numm02 = parseInt(num2);
+    function generation2(){
+        num1 = 152
+        num2 = 251
+        load()
+    };
 
+    function generation3(){
+        num1 = 252
+        num2 = 386
+        load()
+    };
 
-        blabla01 = Math.floor(Math.random() * ((numm01 - numm02 + 1 )* -1 ));
+    function generation4(){
+        num1 = 387
+        num2 = 493
+        load()
+    };
 
+    function generation5(){
+        num1 = 494
+        num2 = 649
+        load()
+    };
 
-        
-        let url = `https://pokeapi.co/api/v2/pokemon/${blabla01}` 
+    function generation6(){
+        num1 = 650
+        num2 = 721
+        load()
+    };
 
-        alert(blabla)
+    function generation7(){
+        num1 = 722
+        num2 = 809
+        load()
+    };
 
-        fetch(url)
-        .then((Response) =>{
-            return Response.json();
-    
-            
-    
-    
-    
-        })
-        
-        
-        
-        .then((data)=> {
-        
-            console.clear();
-            console.log(data);
-            
-          
-        
-            
-    
-    
-        
-            document.getElementById('numero').innerHTML = "N°" + data['id'];
-            let img = data['sprites']['front_default'];
-            document.getElementById('pic1').setAttribute('src', img);
-    
-    
-           
-    })}
+    function generation8(){
+        num1 = 810
+        num2 = 890
+        load()
+    };
 
-
+    function generation9(){
+        num1 = 906
+        num2 = 1008
+        load()
+    };
