@@ -1,0 +1,169 @@
+*{padding: 0px;margin: 0px;}
+
+.container{
+	border: 3px solid black;
+	position: absolute;
+	border-radius: 1rem;
+	height: 300px;
+	width: 400px;
+	text-align: center;
+
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	
+	
+}
+
+.oi{
+	font-family: 'Times New Roman', Times, serif;
+}
+
+
+
+
+.imagem{
+	border: 2px solid lightskyblue;
+	border-radius: 2rem;
+	padding-left: 10px;
+	display: flex;	
+	background-color: beige;
+	margin-left: 150px;
+	
+	
+
+
+}
+
+.numeropoke{
+	
+	display: flex;
+	border: 0.8px solid black;
+	border-radius: 1rem;
+	width: 60px;
+	height: 20px;
+	text-align: center;
+	margin-left: 172px;
+	margin-top: 10px;
+	margin-bottom: 25px;
+	padding-left: 10px;
+
+
+	
+	
+	
+}
+
+
+.adivinhaClass{
+	border: 2px solid lightskyblue;
+	border-radius: 1rem;
+	height: 30px;
+	width: 200px;
+	background-color: aliceblue;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 17px;
+	text-align: center;
+
+
+
+	
+
+	
+
+
+
+	
+}
+.qualnome{
+	
+	border-radius: 1rem;
+	height: 30px;
+	width: 200px;
+	
+	font-family: Arial, Helvetica, sans-serif;
+
+	
+
+
+
+
+}
+
+.botao1{
+	position: relative;
+	height: 50px;
+	width: 150px;
+	border-radius: 2rem;
+	margin-top: 30px;
+	background-color: rgb(150, 241, 13);
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 22px;
+}
+
+
+#IdDivAdivinha{
+	display: none;
+}
+
+.verificar{
+	height: 35px;
+	width: 70px;
+	border-radius: 1rem;
+	background-color: rgb(153, 255, 1);
+	
+}
+
+.botao1:hover{
+	background-color: rgb(151, 398, 90);
+	cursor: pointer;
+}
+
+
+
+
+.verificar:hover{
+	background-color: rgb(151, 398, 90);
+	cursor: pointer;
+
+}
+
+
+.pula{
+
+	height: 35px;
+	width: 70px;
+	border-radius: 1rem;
+	background-color: rgb(153, 255, 1);
+
+}
+
+.testeeee{
+	text-align: center;
+	align-items: center;
+}
+
+.gen{
+	position: relative;
+	border: 0px solid white;
+	background-color: greenyellow;
+	width: 70px;
+	height: 40px;
+	border-radius: 1rem;
+	margin: 10px;
+	
+}
+	
+
+
+.gen00{
+	position: relative;
+	border: 0px solid white;
+	background-color: greenyellow;
+	width: 70px;
+	height: 40px;
+	border-radius: 1rem;
+	margin: 10px;
+	margin-top: 200px;
+	
+}
