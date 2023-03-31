@@ -7,11 +7,15 @@ html{
 
 body{
 	height: 100%;
-	background-image: linear-gradient(45deg, black, red);
+	
+	background-image: url(../how-is-the-pokemon/586843.jpg);
 }
+
+
 
 .ShowElements{
 	display: none;
+
 }
 
 
@@ -211,7 +215,7 @@ body{
 
 .Correct{
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	border: 0px solid white;
+	
 	margin-left: 10px;
 	margin-right: 10px;
 	margin-bottom: 20px;
@@ -219,7 +223,7 @@ body{
 
 .skipped{
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	border: 0px solid white;
+
 	margin-left: 10px;
 	margin-right: 10px;
 	margin-bottom: 20px;
@@ -229,15 +233,22 @@ body{
 
 .error{
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	border: 0px solid white;
+	
 	margin-left: 10px;
 	margin-right: 10px;
 	margin-bottom: 20px;
+
+
+
+
 
 }
 
 .CountError{
 	border: 1px solid red;
+	position: relative;
+	font-size: 20px;
+
 	
 }
 
