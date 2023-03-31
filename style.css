@@ -10,13 +10,18 @@ body{
 	background-image: linear-gradient(45deg, black, red);
 }
 
+.ShowElements{
+	display: none;
+}
+
 
 
 .container{
+	
 	border: 3px solid black;
 	position: absolute;
 	border-radius: 1rem;
-	height: 300px;
+	height: 500px;
 	width: 400px;
 	text-align: center;
 
@@ -32,27 +37,30 @@ body{
 	
 }
 
-.oi{
-	font-family: 'Times New Roman', Times, serif;
+.Tittle{
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
 
 
-.imagem{
+.Image{
+	height: 200px;
+	width: 200px;
 	border: 2px solid lightskyblue;
 	border-radius: 2rem;
 	padding-left: 10px;
 	display: flex;	
 	background-color: beige;
-	margin-left: 150px;
+	margin-left: 100px;
 	
+	margin-top: 20px;
 	
 
 
 }
 
-.numeropoke{
+.NumberPoke{
 	
 	display: flex;
 	border: 0.8px solid black;
@@ -72,7 +80,7 @@ body{
 }
 
 
-.adivinhaClass{
+.WowIsThePoke{
 	border: 2px solid lightskyblue;
 	border-radius: 1rem;
 	height: 30px;
@@ -92,13 +100,13 @@ body{
 
 	
 }
-.qualnome{
+.ThePokeName{
 	
 	border-radius: 1rem;
 	height: 30px;
 	width: 200px;
 	
-	font-family: Arial, Helvetica, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 	
 
@@ -114,7 +122,7 @@ body{
 	border-radius: 2rem;
 	margin-top: 30px;
 	background-color: rgb(150, 241, 13);
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	font-size: 22px;
 }
 
@@ -123,7 +131,7 @@ body{
 	display: none;
 }
 
-.verificar{
+.validationClass{
 	height: 35px;
 	width: 70px;
 	border-radius: 1rem;
@@ -139,14 +147,14 @@ body{
 
 
 
-.verificar:hover{
+.validationClass:hover{
 	background-color: rgb(151, 398, 90);
 	cursor: pointer;
 
 }
 
 
-.pula{
+.SkipQuestion{
 
 	height: 35px;
 	width: 70px;
@@ -172,7 +180,7 @@ body{
 	padding: 10px;
 
 	left: 100%;
-	top: -47%;
+	top: -7%;
 
 
 
@@ -195,5 +203,44 @@ body{
 	
 }
 	
+
+
+.NameOfPokemon{
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.Correct{
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	border: 0px solid white;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 20px;
+}
+
+.skipped{
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	border: 0px solid white;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 20px;
+
+
+}
+
+.error{
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	border: 0px solid white;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 20px;
+
+}
+
+.CountError{
+	border: 1px solid red;
+	
+}
+
+
 
 

@@ -2,6 +2,7 @@
 
 var num1 = 0
 var num2 = 0
+var NamePoke = ""
 
 
 function load(){
@@ -37,7 +38,8 @@ function load(){
         
         document.getElementById('numero').innerHTML = "N°" + data['id'];
         let img = data['sprites']['front_default'];
-        document.getElementById('pic1').setAttribute('src', img);    
+        document.getElementById('pic1').setAttribute('src', img);   
+        NamePoke = data['name'] 
     })
     
     .catch((erro) => {
@@ -52,12 +54,12 @@ function load(){
 
     function clickbotaS(){
         
-    document.getElementById("IdDivAdivinha").style.display = "block";
+    document.getElementById("IdStart").style.display = "block";
     document.getElementById("botaoS").style.display = "none";
     }
 
 
-    function varia(){
+    function validation(){
 
         let Idchoice = document.getElementById('numero').innerHTML
 
@@ -83,7 +85,7 @@ function load(){
             let img = data['sprites']['front_default'];
             document.getElementById('pic1').setAttribute('src', img);
     
-                var NamePoke = data['name']
+                NamePoke = data['name']
                 var writed = document.getElementById("input").value
 
              if(NamePoke != writed){                         
@@ -91,6 +93,8 @@ function load(){
                 var GetNP = parseInt(document.getElementById("errou").innerHTML)
                 var GetNPN = GetNP + 1
                 var GetNP = document.getElementById("errou").innerHTML =`  ${GetNPN}`
+                var NameofThePoke = document.getElementById("TheNameOfPokemon").value;
+                document.getElementById("TheNameOfPokemon").innerHTML = "O nome do pokemon era: " + NamePoke
                 load()
              }else{
 
@@ -99,25 +103,32 @@ function load(){
                 var GetAcc = document.getElementById("acertos").innerHTML =`  ${CountAcc}`
                 document.getElementById("input").value = ""
                 load()
+
+            
+
+
          }
           }
            )
             }
 
-
-    function skip(){
-
+            function skip(){
 
 
-        var DidHeJump = parseInt(document.getElementById("pulou").innerHTML)
 
-            document.getElementById("input").value = ""           
+                var DidHeJump = parseInt(document.getElementById("pulou").innerHTML)
+        
+                    document.getElementById("input").value = ""           
+        
+                var CountSkip = DidHeJump + 1
+                var DidHeJump = document.getElementById("pulou").innerHTML =`  ${CountSkip}`
+                
+                document.getElementById("TheNameOfPokemon").innerHTML = "O nome do pokemon era: " + NamePoke
+                    load()
+            }
 
-        var CountSkip = DidHeJump + 1
-        var DidHeJump = document.getElementById("pulou").innerHTML =`  ${CountSkip}`
+          
 
-            load()
-    }
 
 
     function generation1(){

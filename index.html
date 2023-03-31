@@ -5,36 +5,25 @@
   <title>PokeDex</title>
   <link rel="stylesheet" href="./style.css" />
   <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet" />
+  <link href="https://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
 </head>
 <body class="AllElements">
 
 
-
-
-
-
-
-
-
-
-
-
-  <div class="container" id="containeraa">
-    <h1 class="oi">Pokedex</h1>
+  <div class="container">
+    <h1 class="Tittle">POKEMON</h1>
     <ul data-js="pokedex" class="pokedex"></ul>
 
     
   
 
-<div class="pokedex01">
+<div class="CountError">
 
-<label for="">Acertou</label><label for="" id="acertos">  0</label>
+<label for="">ACERTOS - </label><label for="" id="acertos" class="Correct">  0</label>
 
-<label for="">Errou</label><label for="" id="errou">  0</label>
+<label for="">ERROS - </label><label for="" id="errou" class="error">  0</label>
 
-<label for="">Pulou</label><label for="" id="pulou">  0</label>
-
-
+<label for="">PULOU - </label><label for="" id="pulou" class="skipped">  0</label>
 
 
 
@@ -43,25 +32,27 @@
 
 
 
-<div id="IdDivAdivinha" class="IdClassAdivinha">
+
+
+<div id="IdStart" class="ShowElements">
     <div class="ImgEID">
-  <img src="" alt="" id="pic1" class="imagem">
-  <label for="" id="numero" class="numeropoke">N°</label>
+  <img src="" alt="" id="pic1" class="Image">
+  <label for="" id="numero" class="NumberPoke">N°</label>
     </div>
 
 
 
 
       <div class="lab">
-         <label for="" class="qualnome" id="quapp">Qual o nome deste pokemon?</label>
+         <label for="" class="ThePokeName">QUAL O NOME DESTE POKEMON?</label>
          
 
         <div class="testeeee">
 
-         <button id="pulou" class="pula" onclick="skip()">Pular</button>
+         <button id="pulou" class="SkipQuestion" onclick="skip()">Pular</button>
          
-         <input type="text" id="input" class="adivinhaClass">
-         <button class="verificar" id="verificarID" onclick="varia()">Verificar</button>
+         <input type="text" id="input" class="WowIsThePoke">
+         <button class="validationClass" id="verificarID" onclick="validation()">Verificar</button>
 
         </div>
 
@@ -73,6 +64,7 @@
 <div id="iniciar" class="iniciar">
 
   <button id="botaoS" class="botao1" onclick="load()">INICIAR</button>
+  <label for="" class="NameOfPokemon" id="TheNameOfPokemon"></label>
 
 </div>
 
