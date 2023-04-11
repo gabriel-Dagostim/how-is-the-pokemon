@@ -7,16 +7,14 @@ html{
 }
 
 body{
-	background-image: url(../how-is-the-pokemon/Imagem/7289581.jpg);
+	background-image: url(./Imagem/7289581.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: top;
    }
 
 
-.adsbygoogle{
-	background-color: red;
-}
+
 
 
 .ShowElements{
