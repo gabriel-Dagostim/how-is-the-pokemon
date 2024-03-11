@@ -6,8 +6,8 @@ var NamePoke = ""
 
 
 function load(){
-   
-
+    
+    
     if(num1 == 0){
         alert("Selecione uma geração")
     }else{
@@ -22,12 +22,7 @@ function load(){
     fetch(url)
     .then((Response) =>{
         return Response.json();
-
-        
-
-
-
-    })
+})
     
     
     
@@ -132,55 +127,72 @@ function load(){
 
 
     function generation1(){
-
-        num1 = 1
-        num2 = 151
-        load()
+        document.getElementById('masterGene').style.display = 'none';
+        document.getElementById('restart').style.display = 'inline';
+        num1 = 1;
+        num2 = 151;
+        load();
     };
 
     function generation2(){
+        document.getElementById('masterGene').style.display = 'none';
+        document.getElementById('restart').style.display = 'inline';
         num1 = 152
         num2 = 251
         load()
     };
 
     function generation3(){
+        document.getElementById('masterGene').style.display = 'none';
+        document.getElementById('restart').style.display = 'inline';
         num1 = 252
         num2 = 386
         load()
     };
 
     function generation4(){
+        document.getElementById('masterGene').style.display = 'none';
+        document.getElementById('restart').style.display = 'inline';
         num1 = 387
         num2 = 493
         load()
     };
 
     function generation5(){
+        document.getElementById('masterGene').style.display = 'none';
+        document.getElementById('restart').style.display = 'inline';
         num1 = 494
         num2 = 649
         load()
     };
 
     function generation6(){
+        document.getElementById('masterGene').style.display = 'none';
+        document.getElementById('restart').style.display = 'inline';
         num1 = 650
         num2 = 721
         load()
     };
 
     function generation7(){
+        document.getElementById('masterGene').style.display = 'none';
+        document.getElementById('restart').style.display = 'inline';
         num1 = 722
         num2 = 809
         load()
     };
 
     function generation8(){
+        document.getElementById('masterGene').style.display = 'none';
+        document.getElementById('restart').style.display = 'inline';
         num1 = 810
         num2 = 890
         load()
     };
 
     function generation9(){
+        document.getElementById('masterGene').style.display = 'none';
+        document.getElementById('restart').style.display = 'inline';
         num1 = 906
         num2 = 1008
         load()
