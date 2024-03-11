@@ -257,11 +257,8 @@ body{
 }
 
 .CountError{
-	border: 1px solid red;
 	position: relative;
 	font-size: 20px;
-
-	
 }
 
 
