@@ -128,7 +128,7 @@ function load(){
 
     function generation1(){
         document.getElementById('masterGene').style.display = 'none';
-        document.getElementById('restart').style.display = 'inline';
+        document.getElementById('restart').style.display = 'flex';
         num1 = 1;
         num2 = 151;
         load();
@@ -136,7 +136,7 @@ function load(){
 
     function generation2(){
         document.getElementById('masterGene').style.display = 'none';
-        document.getElementById('restart').style.display = 'inline';
+        document.getElementById('restart').style.display = 'flex';
         num1 = 152
         num2 = 251
         load()
@@ -144,7 +144,7 @@ function load(){
 
     function generation3(){
         document.getElementById('masterGene').style.display = 'none';
-        document.getElementById('restart').style.display = 'inline';
+        document.getElementById('restart').style.display = 'flex';
         num1 = 252
         num2 = 386
         load()
@@ -152,7 +152,7 @@ function load(){
 
     function generation4(){
         document.getElementById('masterGene').style.display = 'none';
-        document.getElementById('restart').style.display = 'inline';
+        document.getElementById('restart').style.display = 'flex';
         num1 = 387
         num2 = 493
         load()
@@ -160,7 +160,7 @@ function load(){
 
     function generation5(){
         document.getElementById('masterGene').style.display = 'none';
-        document.getElementById('restart').style.display = 'inline';
+        document.getElementById('restart').style.display = 'flex';
         num1 = 494
         num2 = 649
         load()
@@ -168,7 +168,7 @@ function load(){
 
     function generation6(){
         document.getElementById('masterGene').style.display = 'none';
-        document.getElementById('restart').style.display = 'inline';
+        document.getElementById('restart').style.display = 'flex';
         num1 = 650
         num2 = 721
         load()
@@ -176,7 +176,7 @@ function load(){
 
     function generation7(){
         document.getElementById('masterGene').style.display = 'none';
-        document.getElementById('restart').style.display = 'inline';
+        document.getElementById('restart').style.display = 'flex';
         num1 = 722
         num2 = 809
         load()
@@ -184,7 +184,7 @@ function load(){
 
     function generation8(){
         document.getElementById('masterGene').style.display = 'none';
-        document.getElementById('restart').style.display = 'inline';
+        document.getElementById('restart').style.display = 'flex';
         num1 = 810
         num2 = 890
         load()
@@ -192,7 +192,7 @@ function load(){
 
     function generation9(){
         document.getElementById('masterGene').style.display = 'none';
-        document.getElementById('restart').style.display = 'inline';
+        document.getElementById('restart').style.display = 'flex';
         num1 = 906
         num2 = 1008
         load()

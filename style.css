@@ -36,7 +36,7 @@ body{
 	padding: 2rem;
 	max-width: 30vw;
 	text-align: center;
-	background-color: white;
+	background-color: #fdfdfd;
 
 
 
@@ -55,15 +55,7 @@ body{
 }
 
 
-.Image{
-	height: 20vh;
-	border: none;
-	border-radius: 2rem;
-	background-color: transparent;	
-	
 
-
-}
 
 .NumberPoke{
 	border: 0.8px solid black;
@@ -262,17 +254,6 @@ body{
 }
 
 
-#restart{
-	display: none;
-	height: 50px;
-	width: 150px;
-	border-radius: 2rem;
-	margin-top: 30px;
-	background-color: rgb(150, 241, 13);
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	font-size: 22px;
-}
-
 
 
 .Btn {
@@ -430,12 +411,12 @@ body{
 	text-align: center;
 	height: 40px;
 	border-radius: 5px;
+	color: #323232;
 	border: 2px solid #323232;
 	background-color: #323232;
 	box-shadow: 4px 4px #323232;
 	background: none;
 	font-size: 1rem;
-	color: #f5f5f5;
 	transition: border 150ms cubic-bezier(0.4,0,0.2,1);
    }
    
@@ -450,6 +431,7 @@ body{
    
    .input:focus, input:valid {
 	outline: none;
+	color: #323232;
 	border: 1.5px solid #323232;
    }
    
@@ -457,14 +439,169 @@ body{
 	transform: translateY(-50%) scale(0.8);
 	background-color: transparent;
 	padding: 0 .2em;
-	color: transparent;
+	color: #323232;
    }
 
 
 
 .guessDiv{
 	display: flex;
+	color: #323232;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
    }
+
+
+
+
+
+
+
+
+
+
+
+
+   .button {
+	--main-focus: #2d8cf0;
+	--font-color: #323232;
+	--bg-color-sub: #dedede;
+	--bg-color: #eee;
+	--main-color: #323232;
+	position: relative;
+	width: 150px;
+	height: 40px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	border: 2px solid var(--main-color);
+	box-shadow: 4px 4px var(--main-color);
+	background-color: var(--bg-color);
+	border-radius: 10px;
+	overflow: hidden;
+  }
+  
+  .button, .button__icon, .button__text {
+	transition: all 0.3s;
+  }
+  
+  .button .button__text {
+	transform: translateX(30px);
+	color: var(--font-color);
+	font-weight: 600;
+  }
+  
+  .button .button__icon {
+	position: absolute;
+	transform: translateX(109px);
+	height: 100%;
+	width: 39px;
+	background-color: var(--bg-color-sub);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+  
+  .button .svg {
+	width: 20px;
+	fill: var(--main-color);
+  }
+  
+  .button:hover {
+	background: var(--bg-color);
+  }
+  
+  .button:hover .button__text {
+	color: transparent;
+  }
+  
+  .button:hover .button__icon {
+	width: 148px;
+	transform: translateX(0);
+  }
+  
+  .button:active {
+	transform: translate(3px, 3px);
+	box-shadow: 0px 0px var(--main-color);
+  }
+
+
+
+
+#restart{
+	display: none;
+	margin: 20px;
+}
+
+  .buttonRR {
+	--main-focus: #2d8cf0;
+	--font-color: #323232;
+	--bg-color-sub: #dedede;
+	--bg-color: #eee;
+	--main-color: #323232;
+	position: relative;
+	width: 150px;
+	height: 40px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	border: 2px solid var(--main-color);
+	box-shadow: 4px 4px var(--main-color);
+	background-color: var(--bg-color);
+	border-radius: 10px;
+	overflow: hidden;
+  }
+  
+  .buttonRR, .buttonRR__icon, .buttonRR__text {
+	transition: all 0.3s;
+  }
+  
+  .buttonRR .buttonRR__text {
+	transform: translateX(30px);
+	color: var(--font-color);
+	font-weight: 600;
+  }
+  
+  .buttonRR .buttonRR__icon {
+	position: absolute;
+	transform: translateX(109px);
+	height: 100%;
+	width: 39px;
+	background-color: var(--bg-color-sub);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+  
+  .buttonRR .svgRR {
+	width: 20px;
+	fill: var(--main-color);
+  }
+  
+  .buttonRR:hover {
+	background: var(--bg-color);
+  }
+  
+  .buttonRR:hover .buttonRR__text {
+	color: transparent;
+  }
+  
+  .buttonRR:hover .buttonRR__icon {
+	width: 148px;
+	transform: translateX(0);
+  }
+  
+  .buttonRR:active {
+	transform: translate(3px, 3px);
+	box-shadow: 0px 0px var(--main-color);
+  }
+
+
+
+  .contentBT-rr{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+
