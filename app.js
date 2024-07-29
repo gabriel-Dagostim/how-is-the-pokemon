@@ -4,6 +4,7 @@ var num2 = 0
 var NamePoke = ""
 
 function load() {
+    document.getElementById('logopokemonssID').style.display = 'flex';
     if (num1 == 0) {
         alert("Selecione uma geração")
     } else {
@@ -34,6 +35,7 @@ document.getElementById('botaoS').onclick = load;
 function clickbotaS() {
     document.getElementById("IdStart").style.display = "block";
     document.getElementById("botaoS").style.display = "none";
+    document.getElementById('logopokemonssID').style.display = 'none';
 }
 
 function validation() {
@@ -81,6 +83,7 @@ function skip() {
 
 function generation1() {
     document.getElementById('masterGene').style.display = 'none';
+    document.getElementById('logopokemonssID').style.display = 'none';
     document.getElementById('restart').style.display = 'flex';
     num1 = 1;
     num2 = 151;
@@ -89,6 +92,7 @@ function generation1() {
 
 function generation2() {
     document.getElementById('masterGene').style.display = 'none';
+    document.getElementById('logopokemonssID').style.display = 'none';
     document.getElementById('restart').style.display = 'flex';
     num1 = 152
     num2 = 251
@@ -97,6 +101,7 @@ function generation2() {
 
 function generation3() {
     document.getElementById('masterGene').style.display = 'none';
+    document.getElementById('logopokemonssID').style.display = 'none';
     document.getElementById('restart').style.display = 'flex';
     num1 = 252
     num2 = 386
@@ -105,6 +110,7 @@ function generation3() {
 
 function generation4() {
     document.getElementById('masterGene').style.display = 'none';
+    document.getElementById('logopokemonssID').style.display = 'none';
     document.getElementById('restart').style.display = 'flex';
     num1 = 387
     num2 = 493
@@ -113,6 +119,7 @@ function generation4() {
 
 function generation5() {
     document.getElementById('masterGene').style.display = 'none';
+    document.getElementById('logopokemonssID').style.display = 'none';
     document.getElementById('restart').style.display = 'flex';
     num1 = 494
     num2 = 649
@@ -121,6 +128,7 @@ function generation5() {
 
 function generation6() {
     document.getElementById('masterGene').style.display = 'none';
+    document.getElementById('logopokemonssID').style.display = 'none';
     document.getElementById('restart').style.display = 'flex';
     num1 = 650
     num2 = 721
@@ -129,6 +137,7 @@ function generation6() {
 
 function generation7() {
     document.getElementById('masterGene').style.display = 'none';
+    document.getElementById('logopokemonssID').style.display = 'none';
     document.getElementById('restart').style.display = 'flex';
     num1 = 722
     num2 = 809
@@ -137,6 +146,7 @@ function generation7() {
 
 function generation8() {
     document.getElementById('masterGene').style.display = 'none';
+    document.getElementById('logopokemonssID').style.display = 'none';
     document.getElementById('restart').style.display = 'flex';
     num1 = 810
     num2 = 890
@@ -145,6 +155,7 @@ function generation8() {
 
 function generation9() {
     document.getElementById('masterGene').style.display = 'none';
+    document.getElementById('logopokemonssID').style.display = 'none';
     document.getElementById('restart').style.display = 'flex';
     num1 = 906
     num2 = 1008
