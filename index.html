@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101826">
+  <meta name="theme-color" content="#eef6ff">
   <meta name="description" content="Adivinhe o Pokémon pela silhueta. Jogue sozinho ou desafie seus amigos em uma sala por código.">
   <title>Quem é esse Pokémon? | Arena Dex</title>
   <link rel="icon" href="./Imagem/pokedex.png">
@@ -22,31 +22,265 @@
     <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 8v5l3 2M9 2h6M4 5l-1 1m17-1 1 1"/></symbol>
     <symbol id="icon-trophy" viewBox="0 0 24 24"><path d="M7 3h10v8a5 5 0 0 1-10 0V3Zm0 2H3v3a4 4 0 0 0 4 4m10-7h4v3a4 4 0 0 1-4 4m-5 4v4m-4 0h8m-9 2h10"/></symbol>
     <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-7-7 7 7-7 7"/></symbol>
+    <symbol id="icon-back" viewBox="0 0 24 24"><path d="M20 12H4m7-7-7 7 7 7"/></symbol>
     <symbol id="icon-play" viewBox="0 0 24 24"><path d="m7 4 13 8-13 8V4Z"/></symbol>
+    <symbol id="icon-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></symbol>
+    <symbol id="icon-volume-on" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5Zm4.5 3.5a5 5 0 0 1 0 7m3-9.5a9 9 0 0 1 0 12"/></symbol>
+    <symbol id="icon-volume-off" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5Zm5 4 5 5m0-5-5 5"/></symbol>
   </svg>
-  <header class="site-header"><div class="header-inner">
-    <button class="brand" id="brandButton" type="button" aria-label="Voltar ao início"><span class="ball-mark" aria-hidden="true"></span><span class="brand-divider" aria-hidden="true"></span><span>Quem é esse <strong>Pokémon?</strong></span></button>
-    <div class="header-actions"><span id="modeBadge" class="mode-badge" hidden></span><span id="roomBadge" class="room-badge" hidden>Sala: <strong id="headerRoomCode"></strong></span><span id="roundBadge" class="round-badge" hidden><span class="tiny-ball" aria-hidden="true"></span> Rodada <strong id="headerRound"></strong></span></div>
-  </div></header>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <button class="brand" id="brandButton" type="button" aria-label="Voltar ao início">
+        <span class="ball-mark" aria-hidden="true">
+          <svg class="brand-emblem" viewBox="0 0 64 64" aria-hidden="true">
+            <polygon points="32,2 56,14 62,32 56,50 32,62 8,50 2,32 8,14" class="emblem-crest"/>
+            <circle cx="32" cy="32" r="24" class="emblem-shell"/>
+            <path d="M8 32a24 24 0 0 1 48 0Z" class="emblem-top"/>
+            <path d="M8 32a24 24 0 0 0 48 0Z" class="emblem-bottom"/>
+            <path d="M16 18a18 18 0 0 1 20-5" class="emblem-glint"/>
+            <rect x="7" y="28.5" width="50" height="7" rx="2" class="emblem-band"/>
+            <circle cx="32" cy="32" r="9" class="emblem-ring"/>
+            <circle cx="32" cy="32" r="4.6" class="emblem-core"/>
+          </svg>
+        </span>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="brand-text">
+          <span class="brand-kicker">ARENA DEX</span>
+          <span class="brand-title">Quem é esse <strong>Pokémon?</strong></span>
+        </span>
+      </button>
+      <div class="header-actions">
+        <span id="modeBadge" class="mode-badge" hidden></span>
+        <span id="roomBadge" class="room-badge" hidden>Sala: <strong id="headerRoomCode"></strong></span>
+        <span id="roundBadge" class="round-badge" hidden><span class="tiny-ball" aria-hidden="true"></span> Rodada <strong id="headerRound"></strong></span>
+        <button id="muteButton" class="mute-button" type="button" aria-pressed="false" aria-label="Silenciar efeitos sonoros" title="Som ligado">
+          <svg class="sound-icon-on"><use href="#icon-volume-on"/></svg>
+          <svg class="sound-icon-off" hidden><use href="#icon-volume-off"/></svg>
+          <span id="muteLabel" class="mute-label">Som</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
   <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
   <main>
     <section id="homeScreen" class="screen home-screen" aria-labelledby="homeTitle">
-      <div class="home-copy"><div class="eyebrow"><span class="eyebrow-line"></span> ARENA DEX</div><h1 id="homeTitle">Quem é esse<br><em>Pokémon?</em></h1><p>Uma silhueta, dez rodadas e uma pergunta clássica. Acerte sozinho ou reúna os amigos na mesma arena.</p><div class="home-rules"><span>10 rodadas</span><span>30 segundos</span><span>Dicas opcionais</span></div><div class="home-scanner" aria-hidden="true"><div class="scanner-rings"><span>?</span></div></div></div>
-      <div class="entry-card"><div class="card-lights" aria-hidden="true"><i></i><i></i><i></i></div><h2>Entre na arena</h2><p>Seu nome é tudo de que você precisa para jogar.</p><label for="playerName">Seu nome</label><input id="playerName" name="playerName" type="text" maxlength="24" autocomplete="nickname" placeholder="Como vamos chamar você?" required><label for="generation">Geração</label><select id="generation" name="generation"><option value="all">Todas as gerações</option><option value="1">1ª geração · Kanto</option><option value="2">2ª geração · Johto</option><option value="3">3ª geração · Hoenn</option><option value="4">4ª geração · Sinnoh</option><option value="5">5ª geração · Unova</option><option value="6">6ª geração · Kalos</option><option value="7">7ª geração · Alola</option><option value="8">8ª geração · Galar</option><option value="9">9ª geração · Paldea</option></select><div class="entry-actions"><button id="soloButton" class="action-button action-primary" type="button"><svg><use href="#icon-user"/></svg> Jogar solo <svg class="arrow"><use href="#icon-arrow"/></svg></button><button id="createButton" class="action-button action-red" type="button"><svg><use href="#icon-users"/></svg> Criar sala</button></div><div class="join-divider"><span>ou entre na sala de um amigo</span></div><div class="join-row"><label class="sr-only" for="joinCode">Código da sala</label><input id="joinCode" type="text" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="CÓDIGO"><button id="joinButton" type="button">Entrar <svg><use href="#icon-arrow"/></svg></button></div></div>
-    </section>
-    <section id="lobbyScreen" class="screen lobby-screen" aria-labelledby="lobbyTitle" hidden>
-      <div class="lobby-device" aria-hidden="true"><div class="lobby-device-screen"><svg><use href="#icon-users"/></svg></div><div class="lobby-device-button"></div></div>
-      <div class="lobby-content"><div class="eyebrow lobby-eyebrow"><svg><use href="#icon-users"/></svg> COMPETIÇÃO ENTRE AMIGOS</div><h1 id="lobbyTitle">Sala de competição</h1><div class="title-divider"><span class="tiny-ball" aria-hidden="true"></span></div><div class="room-code-box"><strong id="lobbyCode"></strong><button id="copyCodeButton" type="button" aria-label="Copiar código da sala"><svg><use href="#icon-copy"/></svg></button></div><p class="lobby-subtitle">Envie o código para seus amigos</p><div class="lobby-players"><h2>Treinadores na sala <span id="playerCount"></span></h2><ul id="lobbyPlayerList"></ul></div><button id="startRoomButton" class="action-button action-primary lobby-start" type="button" hidden><svg><use href="#icon-play"/></svg> Iniciar partida</button><p id="lobbyWaiting" class="waiting-message" hidden>Aguardando o anfitrião iniciar a partida…</p><p class="lobby-meta">10 rodadas <span>·</span> 30 segundos por Pokémon <span>·</span> dicas opcionais</p></div>
-    </section>
-    <section id="gameScreen" class="screen game-screen" aria-labelledby="questionTitle" hidden>
-      <div class="arena-status"><div class="timer" id="timerBox"><svg><use href="#icon-clock"/></svg><strong id="timerText">00:30</strong></div><div class="your-score"><svg><use href="#icon-trophy"/></svg><span>Sua pontuação<strong id="yourScore">0</strong></span></div></div>
-      <div class="arena-layout"><div class="scanner-shell"><div class="scanner-vent" aria-hidden="true"><i></i><i></i><i></i></div><div class="scanner-screen"><div class="scanner-grid"></div><div class="scanner-ring"><img id="pokemonImage" alt="Silhueta de um Pokémon misterioso" hidden><span id="imagePlaceholder" aria-hidden="true">?</span></div></div><div class="scanner-bottom"><span></span><span></span><span></span><div class="scanner-button"></div></div></div>
-        <div class="question-panel"><div class="question-kicker"><span class="tiny-ball" aria-hidden="true"></span><span id="questionKicker">RODADA 1 DE 10</span></div><h1 id="questionTitle">Qual é o Pokémon?</h1><form id="answerForm"><label class="sr-only" for="answerInput">Nome do Pokémon</label><input id="answerInput" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Digite o nome do Pokémon…"><button id="answerButton" class="action-button action-primary" type="submit">Responder <svg><use href="#icon-arrow"/></svg></button></form><div id="answerStatus" class="answer-status" role="status" aria-live="polite"></div><div class="hint-section"><h2><svg><use href="#icon-bulb"/></svg> Dicas <small>até 2 por rodada</small></h2><ul id="hintList"></ul><button id="hintButton" class="hint-button" type="button"><svg><use href="#icon-bulb"/></svg> Revelar dica</button></div><div id="revealCard" class="reveal-card" hidden><span>Era o Pokémon</span><strong id="revealedName"></strong><small id="revealMessage"></small></div></div>
-        <aside class="leaderboard" aria-labelledby="leaderboardTitle"><h2 id="leaderboardTitle"><svg><use href="#icon-trophy"/></svg> Classificação <small id="leaderboardSub">ao vivo</small></h2><ol id="leaderboardList"></ol></aside>
+      <div class="home-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span> ARENA DEX · DUELO DE SILHUETAS</div>
+        <h1 id="homeTitle">Quem é esse<br><em>Pokémon?</em></h1>
+        <p>Uma silhueta misteriosa, dez rodadas vibrantes e duelos em tempo real. Responda rápido, ganhe bônus de velocidade e pontue até quando chegar perto!</p>
+        <div class="home-rules">
+          <span>⚡ Preparo 2s + 30s</span>
+          <span>🎯 Pontos por proximidade</span>
+          <span>🏆 Bônus de velocidade</span>
+          <span>💡 Até 2 dicas</span>
+        </div>
+        <div class="home-scanner" aria-hidden="true">
+          <div class="scanner-rings">
+            <span class="scanner-question">?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry-card">
+        <div class="card-header-strip">
+          <div class="card-lights" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span class="card-chip">POKÉDEX READY</span>
+        </div>
+        <h2>Entre na arena</h2>
+        <p>Escolha seu apelido de treinador e a geração para começar.</p>
+
+        <div class="field-group">
+          <label for="playerName">Seu nome de treinador</label>
+          <div class="input-capsule">
+            <svg class="field-icon" aria-hidden="true"><use href="#icon-user"/></svg>
+            <input id="playerName" name="playerName" type="text" maxlength="24" autocomplete="nickname" placeholder="Ex: Red, Misty, Ash..." required>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-head">
+            <label for="generation">Geração</label>
+            <span class="field-hint">Toque ou selecione</span>
+          </div>
+          <div class="select-capsule">
+            <select id="generation" name="generation">
+              <option value="all">Todas as gerações (1–1025)</option>
+              <option value="1">1ª geração · Kanto</option>
+              <option value="2">2ª geração · Johto</option>
+              <option value="3">3ª geração · Hoenn</option>
+              <option value="4">4ª geração · Sinnoh</option>
+              <option value="5">5ª geração · Unova</option>
+              <option value="6">6ª geração · Kalos</option>
+              <option value="7">7ª geração · Alola</option>
+              <option value="8">8ª geração · Galar</option>
+              <option value="9">9ª geração · Paldea</option>
+            </select>
+          </div>
+          <div id="generationChips" class="generation-chips" role="group" aria-label="Atalho de gerações">
+            <button type="button" class="gen-chip is-active" data-gen="all" aria-pressed="true">Todas</button>
+            <button type="button" class="gen-chip" data-gen="1" aria-pressed="false">1ª Kanto</button>
+            <button type="button" class="gen-chip" data-gen="2" aria-pressed="false">2ª Johto</button>
+            <button type="button" class="gen-chip" data-gen="3" aria-pressed="false">3ª Hoenn</button>
+            <button type="button" class="gen-chip" data-gen="4" aria-pressed="false">4ª Sinnoh</button>
+            <button type="button" class="gen-chip" data-gen="5" aria-pressed="false">5ª Unova</button>
+            <button type="button" class="gen-chip" data-gen="6" aria-pressed="false">6ª Kalos</button>
+            <button type="button" class="gen-chip" data-gen="7" aria-pressed="false">7ª Alola</button>
+            <button type="button" class="gen-chip" data-gen="8" aria-pressed="false">8ª Galar</button>
+            <button type="button" class="gen-chip" data-gen="9" aria-pressed="false">9ª Paldea</button>
+          </div>
+        </div>
+
+        <div class="entry-actions">
+          <button id="soloButton" class="action-button action-primary" type="button">
+            <svg><use href="#icon-user"/></svg>
+            <span>Jogar solo</span>
+            <svg class="arrow"><use href="#icon-arrow"/></svg>
+          </button>
+          <button id="createButton" class="action-button action-red" type="button">
+            <svg><use href="#icon-users"/></svg>
+            <span>Criar sala</span>
+          </button>
+        </div>
+
+        <div class="join-divider"><span>ou entre na sala de um amigo</span></div>
+
+        <div class="join-row">
+          <label class="sr-only" for="joinCode">Código da sala</label>
+          <input id="joinCode" type="text" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="CÓDIGO">
+          <button id="joinButton" type="button">
+            <span>Entrar</span>
+            <svg><use href="#icon-arrow"/></svg>
+          </button>
+        </div>
       </div>
     </section>
-    <section id="resultScreen" class="screen result-screen" aria-labelledby="resultTitle" hidden><div class="result-icon"><svg><use href="#icon-trophy"/></svg></div><div class="eyebrow">FIM DE PARTIDA</div><h1 id="resultTitle">A arena tem um vencedor</h1><p id="resultSummary"></p><ol id="resultList"></ol><button id="newGameButton" class="action-button action-primary" type="button">Novo jogo <svg><use href="#icon-arrow"/></svg></button></section>
+
+    <section id="lobbyScreen" class="screen lobby-screen" aria-labelledby="lobbyTitle" hidden>
+      <div class="lobby-device" aria-hidden="true">
+        <div class="lobby-device-screen"><svg><use href="#icon-users"/></svg></div>
+        <div class="lobby-device-button"></div>
+      </div>
+      <div class="lobby-content">
+        <div class="screen-nav">
+          <button id="lobbyBackButton" class="back-button" type="button">
+            <svg><use href="#icon-back"/></svg>
+            <span>Voltar</span>
+          </button>
+        </div>
+        <div class="eyebrow lobby-eyebrow"><svg><use href="#icon-users"/></svg> COMPETIÇÃO ENTRE AMIGOS</div>
+        <h1 id="lobbyTitle">Sala de competição</h1>
+        <div class="title-divider"><span class="tiny-ball" aria-hidden="true"></span></div>
+        <div class="room-code-box">
+          <strong id="lobbyCode"></strong>
+          <button id="copyCodeButton" type="button" aria-label="Copiar código da sala">
+            <svg><use href="#icon-copy"/></svg>
+          </button>
+        </div>
+        <p class="lobby-subtitle">Envie o código para seus amigos entrarem na arena</p>
+        <div class="lobby-players">
+          <h2>Treinadores na sala <span id="playerCount"></span></h2>
+          <ul id="lobbyPlayerList"></ul>
+        </div>
+        <button id="startRoomButton" class="action-button action-primary lobby-start" type="button" hidden>
+          <svg><use href="#icon-play"/></svg>
+          <span>Iniciar partida</span>
+        </button>
+        <p id="lobbyWaiting" class="waiting-message" hidden>Aguardando o anfitrião iniciar a partida…</p>
+        <p class="lobby-meta">10 rodadas <span>·</span> 2s preparo + 30s por Pokémon <span>·</span> bônus de velocidade</p>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen" aria-labelledby="questionTitle" hidden>
+      <div class="arena-topbar">
+        <button id="gameBackButton" class="back-button" type="button">
+          <svg><use href="#icon-back"/></svg>
+          <span>Voltar</span>
+        </button>
+        <div class="arena-status">
+          <div class="timer" id="timerBox">
+            <svg><use href="#icon-clock"/></svg>
+            <strong id="timerText">00:30</strong>
+          </div>
+          <div class="your-score">
+            <svg><use href="#icon-trophy"/></svg>
+            <span>Sua pontuação<strong id="yourScore">0</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="arena-layout">
+        <div class="scanner-shell">
+          <div class="scanner-vent" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="scanner-screen">
+            <div class="scanner-grid"></div>
+            <div class="scanner-ring">
+              <img id="pokemonImage" alt="Silhueta de um Pokémon misterioso" hidden>
+              <span id="imagePlaceholder" aria-hidden="true">?</span>
+            </div>
+            <div id="prepOverlay" class="prep-overlay" aria-live="assertive" hidden>
+              <div class="prep-ring">
+                <span id="prepCount" class="prep-count">2</span>
+              </div>
+              <span id="prepText" class="prep-text">Prepare-se…</span>
+            </div>
+          </div>
+          <div class="scanner-bottom"><span></span><span></span><span></span><div class="scanner-button"></div></div>
+        </div>
+
+        <div class="question-panel">
+          <div class="question-kicker"><span class="tiny-ball" aria-hidden="true"></span><span id="questionKicker">RODADA 1 DE 10</span></div>
+          <h1 id="questionTitle">Qual é o Pokémon?</h1>
+          <form id="answerForm">
+            <label class="sr-only" for="answerInput">Nome do Pokémon</label>
+            <input id="answerInput" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Digite o nome do Pokémon…">
+            <button id="answerButton" class="action-button action-primary" type="submit">
+              <span>Responder</span>
+              <svg><use href="#icon-arrow"/></svg>
+            </button>
+          </form>
+          <div id="answerStatus" class="answer-status" role="status" aria-live="polite"></div>
+          <div class="hint-section">
+            <h2><svg><use href="#icon-bulb"/></svg> Dicas <small>até 2 por rodada</small></h2>
+            <ul id="hintList"></ul>
+            <button id="hintButton" class="hint-button" type="button"><svg><use href="#icon-bulb"/></svg> Revelar dica</button>
+          </div>
+          <div id="revealCard" class="reveal-card" hidden>
+            <span class="reveal-label">Era o Pokémon</span>
+            <strong id="revealedName"></strong>
+            <small id="revealMessage"></small>
+            <div id="fastestBadge" class="fastest-badge" hidden></div>
+          </div>
+        </div>
+
+        <aside class="leaderboard" aria-labelledby="leaderboardTitle">
+          <h2 id="leaderboardTitle"><svg><use href="#icon-trophy"/></svg> Classificação <small id="leaderboardSub">ao vivo</small></h2>
+          <ol id="leaderboardList"></ol>
+        </aside>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="screen result-screen" aria-labelledby="resultTitle" hidden>
+      <div class="result-icon"><svg><use href="#icon-trophy"/></svg></div>
+      <div class="eyebrow">FIM DE PARTIDA</div>
+      <h1 id="resultTitle">A arena tem um vencedor</h1>
+      <p id="resultSummary"></p>
+      <ol id="resultList"></ol>
+      <div class="result-actions">
+        <button id="newGameButton" class="action-button action-primary" type="button">
+          <span>Novo jogo</span>
+          <svg><use href="#icon-arrow"/></svg>
+        </button>
+        <button id="resultBackButton" class="back-button result-back" type="button">
+          <svg><use href="#icon-back"/></svg>
+          <span>Voltar ao início</span>
+        </button>
+      </div>
+    </section>
   </main>
+
   <footer>Dados dos Pokémon por <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a>. Projeto de fã, sem vínculo oficial com Pokémon.</footer>
 </body>
 </html>

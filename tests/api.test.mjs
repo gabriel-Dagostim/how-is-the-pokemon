@@ -32,16 +32,16 @@ function post(api, body) {
   }));
 }
 
-test('room API creates and joins anonymously, keeps answers off the wire, and scores server-side', async () => {
+test('room API creates and joins anonymously, enforces 2s prep lock, keeps answers off the wire, and scores server-side', async () => {
   const redis = new RedisFake();
   let now = 1_000_000;
   let firstFetch = true;
   const fetcher = async url => {
     if (firstFetch) { now += 9_000; firstFetch = false; }
     return { ok: true, json: async () => ({
-    id: Number(url.split('/').at(-1)), name: 'pikachu', height: 4, weight: 60,
-    types: [{ type: { name: 'electric' } }],
-    sprites: { other: { 'official-artwork': { front_default: 'https://example.com/pikachu.png' } } },
+      id: Number(url.split('/').at(-1)), name: 'pikachu', height: 4, weight: 60,
+      types: [{ type: { name: 'electric' } }],
+      sprites: { other: { 'official-artwork': { front_default: 'https://example.com/pikachu.png' } } },
     }) };
   };
   const api = createRoomApi({ getRedis: () => redis, fetcher, now: () => now, pick: () => 0 });
@@ -60,18 +60,63 @@ test('room API creates and joins anonymously, keeps answers off the wire, and sc
   const question = await (await get(hostToken)).json();
   assert.equal(question.phase, 'question');
   assert.equal(question.round, 1);
+  assert.equal(question.prepRemainingMs, 2_000);
   assert.equal(question.remainingMs, 30_000);
   assert.equal(question.answer, undefined);
   assert.equal(JSON.stringify(question).includes('pikachu'), false);
   assert.equal(question.imageUrl, `/api/image?code=${code}`);
-  now += 5_000;
+
+  // Answer during 2s prep countdown is rejected with 409
+  now += 1_000;
+  assert.equal((await post(api, { action: 'answer', code, token: hostToken, answer: 'pikachu' })).status, 409);
+
+  // After prep + 5s (25s left -> base 150 + 35 speed bonus = 185)
+  now += 6_000;
   assert.equal((await post(api, { action: 'answer', code, token: hostToken, answer: 'pikachu' })).status, 200);
   assert.equal((await post(api, { action: 'answer', code, token: anaToken, answer: 'nope' })).status, 200);
   const revealed = await (await get(hostToken)).json();
   assert.equal(revealed.phase, 'reveal');
   assert.equal(revealed.answer, 'pikachu');
-  assert.deepEqual(revealed.players, [{ name: 'Gabriel', score: 150 }, { name: 'Ana', score: 0 }]);
+  assert.equal(revealed.answerOutcome, 'exact');
+  assert.equal(revealed.pointsEarned, 185);
+  assert.equal(revealed.speedBonus, 35);
+  assert.equal(revealed.fastestPlayer.name, 'Gabriel');
+  assert.deepEqual(revealed.players, [
+    { name: 'Gabriel', score: 185, answered: true, lastRoundPoints: 185, speedRank: 1, reactionMs: 5_000 },
+    { name: 'Ana', score: 0, answered: true, lastRoundPoints: 0, speedRank: 0, reactionMs: null },
+  ]);
   assert.equal((await api.fetch(new Request('https://example.com/api/room', { method: 'PUT' }))).status, 405);
+});
+
+test('room API awards proximity points and 2nd-place speed bonus without leaking name before reveal', async () => {
+  const redis = new RedisFake();
+  let now = 2_000_000;
+  const fetcher = async url => ({ ok: true, json: async () => ({
+    id: Number(url.split('/').at(-1)), name: 'charizard', height: 17, weight: 905,
+    types: [{ type: { name: 'fire' } }],
+    sprites: { other: { 'official-artwork': { front_default: 'https://example.com/charizard.png' } } },
+  }) });
+  const api = createRoomApi({ getRedis: () => redis, fetcher, now: () => now, pick: () => 0 });
+  const { code, token: hostToken } = await (await post(api, { action: 'create', name: 'Gabriel', generation: 1 })).json();
+  const { token: anaToken } = await (await post(api, { action: 'join', code, name: 'Ana' })).json();
+  await post(api, { action: 'start', code, token: hostToken });
+  now += 2_000; // prep ends
+  // Host answers with close typo 'charisard' first (30s left -> base 160 -> 70% = 112, +35 speed = 147)
+  const hostAfter = await (await post(api, { action: 'answer', code, token: hostToken, answer: 'charisard' })).json();
+  assert.equal(hostAfter.phase, 'question');
+  assert.equal(hostAfter.answer, undefined);
+  assert.equal(hostAfter.answerOutcome, 'proximity');
+  assert.equal(hostAfter.pointsEarned, 147);
+  assert.equal(JSON.stringify(hostAfter).includes('charizard'), false);
+
+  // Ana answers exact second (30s left -> base 160 + 15 speed = 175)
+  now += 1_000;
+  const revealed = await (await post(api, { action: 'answer', code, token: anaToken, answer: 'charizard' })).json();
+  assert.equal(revealed.phase, 'reveal');
+  assert.equal(revealed.answer, 'charizard');
+  assert.equal(revealed.answerOutcome, 'exact');
+  assert.equal(revealed.speedBonus, 15);
+  assert.equal(revealed.fastestPlayer.name, 'Gabriel');
 });
 
 test('image API proxies a black silhouette during question and original art during reveal', async () => {
@@ -97,6 +142,7 @@ test('image API proxies a black silhouette during question and original art duri
   assert.equal(hidden.headers.get('cache-control'), 'no-store');
   assert.equal(hidden.headers.get('location'), null);
   assert.deepEqual([...await sharp(await hidden.arrayBuffer()).raw().toBuffer()].slice(0, 3), [0, 0, 0]);
+  now += 2_000;
   await post(api, { action: 'answer', code, token, answer: 'pikachu' });
   await post(api, { action: 'answer', code, token: second, answer: 'wrong' });
   const revealed = await get(token);
