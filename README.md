@@ -1,42 +1,25 @@
-# Pokémon Guessing Game
+# Arena Dex
 
-## Descrição
+Jogo de adivinhar Pokémon pela silhueta. É possível jogar sozinho ou competir com amigos em uma sala de até oito pessoas, acessada por código. Só é preciso escolher um nome.
 
-Bem-vindo ao Pokémon Guessing Game! Este site é inspirado em um jogo clássico onde o objetivo é adivinhar o nome do Pokémon pela imagem. Teste seus conhecimentos sobre Pokémon e veja quantos você consegue acertar!
+## Como funciona
 
-## Funcionalidades
+- Dez rodadas de 30 segundos, com cinco segundos para a revelação.
+- Duas dicas por rodada, sobre tipo, altura e peso. Cada dica reduz a pontuação da rodada.
+- Classificação atualizada durante a partida. Na competição, o servidor calcula a pontuação e não envia a resposta antes da revelação.
+- Salas temporárias de duas horas, sem cadastro. O código e o acesso do jogador são guardados apenas na sessão do navegador.
 
-- Exibição aleatória de imagens de Pokémon.
-- Campo de texto para o usuário inserir o nome do Pokémon.
-- Feedback imediato sobre a resposta correta ou incorreta.
-- Opção para escolher a geração de Pokémon para adivinhar.
-- Contador de erros, acertos e pulos utilizados para acompanhar seu desempenho.
+## Rodar localmente
 
-## Tecnologias Utilizadas
+Requer Node.js 20 ou superior. Instale as dependências com `npm ci`, configure as variáveis abaixo em um arquivo `.env.local` e execute `npx vercel dev`. O modo solo consulta a [PokéAPI](https://pokeapi.co/) diretamente; as salas usam as Functions da Vercel e Redis.
 
-- **Frontend:** HTML, CSS, JavaScript
-- **API:** PokeAPI (https://pokeapi.co)
+```dotenv
+UPSTASH_REDIS_REST_URL=https://seu-banco.upstash.io
+UPSTASH_REDIS_REST_TOKEN=seu-token
+```
 
-## Como Executar
+Crie um banco Redis no plano gratuito da integração Upstash na Vercel e vincule-o ao projeto nos ambientes Production e Preview. Confirme que os nomes das variáveis no painel são exatamente os mostrados acima. Não publique o arquivo com os valores reais.
 
-1. Clone este repositório para o seu ambiente local.
-    ```sh
-    git clone https://github.com/gabriel-Dagostim/how-is-the-pokemon.git
-    ```
-2. Navegue até o diretório do projeto.
-    ```sh
-    cd how-is-the-pokemon
-    ```
-3. Abra o arquivo `index.html` no seu navegador preferido.
+Execute `npm test` para testar pontuação, estados da partida, autenticação anônima, limites de requisição, proxy das silhuetas e integração das rotas. O projeto é publicado em [pokemon.gabrieldagostim.com](https://pokemon.gabrieldagostim.com/).
 
-## Contribuições
-
-Contribuições são bem-vindas! Se você tiver sugestões de melhorias ou encontrar algum bug, sinta-se à vontade para abrir uma issue ou enviar um pull request.
-
-## Licença
-
-Este projeto está licenciado sob a Licença MIT. Consulte o arquivo `LICENSE` para obter mais informações.
-
----
-
-Divirta-se jogando e aprimorando seus conhecimentos sobre Pokémon!
+Dados e imagens dos Pokémon são da [PokéAPI](https://pokeapi.co/) e do [repositório oficial de sprites](https://github.com/PokeAPI/sprites). Projeto de fã, sem vínculo oficial com Pokémon.

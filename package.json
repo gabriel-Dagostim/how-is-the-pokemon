@@ -1,0 +1,12 @@
+{
+  "name": "how-is-the-pokemon",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@upstash/redis": "^1.35.8",
+    "sharp": "^0.35.5"
+  }
+}
