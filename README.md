@@ -11,7 +11,7 @@ Jogo de adivinhar Pokémon pela silhueta. É possível jogar sozinho ou competir
 
 ## Rodar localmente
 
-Requer Node.js 20 ou superior. Instale as dependências com `npm ci`, configure as variáveis abaixo em um arquivo `.env.local` e execute `npx vercel dev`. O modo solo consulta a [PokéAPI](https://pokeapi.co/) diretamente; as salas usam as Functions da Vercel e Redis.
+Requer Node.js 26 na Vercel. Instale as dependências com `npm ci`, configure as variáveis abaixo em um arquivo `.env.local` e execute `npx vercel dev`. O modo solo consulta a [PokéAPI](https://pokeapi.co/) diretamente; as salas usam as Functions da Vercel e Redis.
 
 ```dotenv
 UPSTASH_REDIS_REST_URL=https://seu-banco.upstash.io

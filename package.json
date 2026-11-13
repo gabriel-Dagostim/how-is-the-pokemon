@@ -2,6 +2,7 @@
   "name": "how-is-the-pokemon",
   "private": true,
   "type": "module",
+  "engines": { "node": "26.x" },
   "scripts": {
     "test": "node --test"
   },
