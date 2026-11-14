@@ -130,6 +130,25 @@ test('duel speed bonus awards +35 to 1st, +15 to 2nd, and 0 to 3rd solver', () =
   assert.equal(bia.lastRoundSpeedBonus, 0);
 });
 
+test('speed bonus follows answer time when Redis commits arrive out of order', () => {
+  const room = createRoom('ABC234', 'Gabriel', 'host-hash', 'all', now);
+  joinRoom(room, 'Ana', 'ana-hash');
+  startRoom(room, 'host-hash', questions, now);
+  const open = now + PREP_MS;
+
+  answerRoom(room, 'host-hash', 'pikachu', open + 4_000);
+  answerRoom(room, 'ana-hash', 'pikachu', open + 2_000);
+
+  const host = room.players.find(entry => entry.name === 'Gabriel');
+  const ana = room.players.find(entry => entry.name === 'Ana');
+  assert.equal(ana.speedRank, 1);
+  assert.equal(ana.lastRoundSpeedBonus, 35);
+  assert.equal(ana.score, 191);
+  assert.equal(host.speedRank, 2);
+  assert.equal(host.lastRoundSpeedBonus, 15);
+  assert.equal(host.score, 167);
+});
+
 test('hints are private, capped at two, and answer stays hidden until reveal', () => {
   const room = readyRoom();
   const open = now + PREP_MS;
