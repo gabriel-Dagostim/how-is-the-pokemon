@@ -31,7 +31,7 @@ Aplicação web responsiva de duelo de silhuetas Pokémon. Jogue sozinho contra 
 ## Arquitetura & Stack
 
 - **Frontend**: HTML5, CSS3 responsivo (tema claro Pokédex + wallpaper SVG), JavaScript Vanilla (`public/app.js`), Web Audio API.
-- **Backend / Serverless Functions (Vercel)**: Endpoints em Node.js (`api/room.js`, `api/image.js`) para gerenciamento de salas, cálculo autoritativo de pontuação e proxy de silhuetas com `sharp`.
+- **Backend / Serverless Functions (Vercel)**: Endpoints em Node.js (`api/room.js`, `api/image.js`, `api/pokedex.js`) para salas, pontuação autoritativa, silhuetas e consulta solo à PokéAPI.
 - **Persistência**: Upstash Redis é necessário para salas publicadas; o servidor local usa memória quando as variáveis não estão configuradas.
 
 ## Rodando Localmente

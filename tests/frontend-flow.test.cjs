@@ -64,7 +64,7 @@ test('partida solo descarta resposta tardia após voltar ao início e ignora cli
   let resolvePokemon;
   let pokemonRequests = 0;
   const { elements, handlers } = app(url => {
-    if (url.includes('/generation/')) return Promise.resolve({ ok: true, json: async () => ({ pokemon_species: [{ url: 'https://pokeapi.co/api/v2/pokemon-species/25/' }] }) });
+    if (url.includes('/api/pokedex?generation=')) return Promise.resolve({ ok: true, json: async () => ({ pokemon_species: [{ url: 'https://pokeapi.co/api/v2/pokemon-species/25/' }] }) });
     pokemonRequests++;
     return new Promise(resolve => { resolvePokemon = resolve; });
   });
@@ -127,7 +127,7 @@ test('falha de rede no solo mostra mensagem útil em português', async () => {
 
 test('solo respeita contagem de preparo de 2s e aceita pontuação por proximidade após liberar', async () => {
   const { elements, handlers, tick } = app(url => {
-    if (url.includes('/generation/')) {
+    if (url.includes('/api/pokedex?generation=')) {
       return Promise.resolve({ ok: true, json: async () => ({ pokemon_species: [{ url: 'https://pokeapi.co/api/v2/pokemon-species/6/' }] }) });
     }
     return Promise.resolve({

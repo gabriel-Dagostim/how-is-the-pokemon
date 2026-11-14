@@ -687,7 +687,7 @@ if (typeof window !== 'undefined') {
 
   async function soloPool(generation) {
     if (state.pools.has(generation)) return state.pools.get(generation);
-    const response = await fetchPokeApi(`https://pokeapi.co/api/v2/generation/${generation}/`);
+    const response = await fetchPokeApi(`/api/pokedex?generation=${generation}`);
     if (!response.ok) throw new Error('A PokéAPI não respondeu. Tente novamente.');
     const data = await response.json();
     const ids = data.pokemon_species.map(species => Number(species.url.match(/\/(\d+)\/?$/)?.[1])).filter(Number.isInteger);
@@ -736,7 +736,7 @@ if (typeof window !== 'undefined') {
       for (let attempt = 0; attempt < 5; attempt += 1) {
         const available = ids.filter(id => !state.usedIds.has(id));
         const id = (available.length ? available : ids)[Math.floor(Math.random() * (available.length || ids.length))];
-        const response = await fetchPokeApi(`https://pokeapi.co/api/v2/pokemon/${id}/`);
+        const response = await fetchPokeApi(`/api/pokedex?pokemon=${id}`);
         if (!response.ok) continue;
         pokemon = await response.json();
         artwork = pokemon.sprites?.other?.['official-artwork']?.front_default || pokemon.sprites?.front_default;

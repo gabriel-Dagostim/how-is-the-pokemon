@@ -24,6 +24,7 @@ test('servidor local serve só arquivos públicos e escuta no loopback por padr�
     for (const [route, status] of [
       ['/', 200], ['/app.js', 200], ['/style.css', 200], ['/Imagem/pokedex.png', 200],
       ['/.env.example', 404], ['/package.json', 404], ['/scripts/dev-server.mjs', 404], ['/lib/game.mjs', 404],
+      ['/api/pokedex?generation=0', 400],
     ]) {
       assert.equal((await fetch(`${base}${route}`)).status, status, route);
     }

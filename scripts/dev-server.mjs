@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRoomApi } from '../api/room.js';
 import { createImageApi } from '../api/image.js';
+import { createPokedexApi } from '../api/pokedex.js';
 import { redisFromEnv } from '../lib/http.mjs';
 
 const ROOT_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -73,6 +74,7 @@ const getRedis = () => (useUpstash ? redisFromEnv() : memoryRedis);
 
 const roomApi = createRoomApi({ getRedis });
 const imageApi = createImageApi({ getRedis });
+const pokedexApi = createPokedexApi();
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -124,6 +126,12 @@ const server = http.createServer(async (req, res) => {
 
     if (url.pathname === '/api/image') {
       const response = await imageApi.fetch(toWebRequest(req, origin));
+      await sendWebResponse(res, response);
+      return;
+    }
+
+    if (url.pathname === '/api/pokedex') {
+      const response = await pokedexApi.fetch(toWebRequest(req, origin));
       await sendWebResponse(res, response);
       return;
     }
