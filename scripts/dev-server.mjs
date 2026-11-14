@@ -8,6 +8,7 @@ import { createImageApi } from '../api/image.js';
 import { redisFromEnv } from '../lib/http.mjs';
 
 const ROOT_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const PUBLIC_DIR = path.join(ROOT_DIR, 'public');
 const PORT = Number(process.env.PORT) || 3001;
 const HOST = process.env.HOST || '127.0.0.1';
 
@@ -134,7 +135,7 @@ const server = http.createServer(async (req, res) => {
       res.end('Não encontrado.');
       return;
     }
-    const filePath = path.join(ROOT_DIR, relative);
+    const filePath = path.join(PUBLIC_DIR, relative);
 
     const stat = await fsp.stat(filePath).catch(() => null);
     if (!stat || !stat.isFile()) {

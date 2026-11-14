@@ -8,7 +8,7 @@ const context = vm.createContext({
   document: { getElementById: () => ({}) },
   console,
 });
-vm.runInContext(readFileSync(join(__dirname, 'app.js'), 'utf8'), context);
+vm.runInContext(readFileSync(join(__dirname, 'public', 'app.js'), 'utf8'), context);
 
 test('aceita nomes de Pokémon sem acento, pontuação ou diferença de caixa', () => {
   assert.equal(context.normalizeAnswer('  Mr. Mime  '), 'mrmime');

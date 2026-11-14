@@ -47,7 +47,7 @@ function app(fetcher, { withTimers = false } = {}) {
     clearTimeout() {},
     URL: { revokeObjectURL() {} },
   });
-  vm.runInContext(readFileSync(join(__dirname, '..', 'app.js'), 'utf8'), context);
+  vm.runInContext(readFileSync(join(__dirname, '..', 'public', 'app.js'), 'utf8'), context);
   elements.get('playerName').value = 'Gabriel';
   elements.get('generation').value = '1';
   return {
