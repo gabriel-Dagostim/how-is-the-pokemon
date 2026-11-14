@@ -32,18 +32,18 @@ Aplicação web responsiva de duelo de silhuetas Pokémon. Jogue sozinho contra 
 
 - **Frontend**: HTML5, CSS3 responsivo (tema claro Pokédex + wallpaper SVG), JavaScript Vanilla (`app.js`), Web Audio API.
 - **Backend / Serverless Functions (Vercel)**: Endpoints em Node.js (`api/room.js`, `api/image.js`) para gerenciamento de salas, cálculo autoritativo de pontuação e proxy de silhuetas com `sharp`.
-- **Persistência**: Upstash Redis em produção (com fallback em memória automático para desenvolvimento local via `scripts/dev-server.mjs`).
+- **Persistência**: Upstash Redis é necessário para salas publicadas; o servidor local usa memória quando as variáveis não estão configuradas.
 
 ## Rodando Localmente
 
-Requer **Node.js 20+** (Node.js 26 na Vercel).
+Requer **Node.js 26**.
 
 ```bash
 npm ci
 npm run dev
 ```
 
-Acesse `http://localhost:3001`. Sem variáveis de ambiente configuradas, o servidor local utiliza armazenamento em memória automaticamente.
+Acesse `http://localhost:3001`. O servidor local escuta apenas em `127.0.0.1` por padrão. Sem variáveis de ambiente configuradas, utiliza armazenamento em memória.
 
 ### Variáveis de Ambiente para Produção (Vercel + Upstash Redis)
 
@@ -53,6 +53,8 @@ Configure `.env.local` (local) ou as Environment Variables na Vercel:
 UPSTASH_REDIS_REST_URL=https://seu-banco.upstash.io
 UPSTASH_REDIS_REST_TOKEN=seu-token
 ```
+
+Sem essas variáveis na Vercel, o modo solo continua disponível, mas as salas retornam HTTP 503.
 
 ### Testes Automatizados
 

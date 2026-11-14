@@ -9,7 +9,7 @@ import { redisFromEnv } from '../lib/http.mjs';
 
 const ROOT_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PORT = Number(process.env.PORT) || 3001;
-const HOST = process.env.HOST || '0.0.0.0';
+const HOST = process.env.HOST || '127.0.0.1';
 
 for (const envFile of ['.env.local', '.env']) {
   const full = path.join(ROOT_DIR, envFile);
@@ -83,6 +83,7 @@ const MIME_TYPES = {
   '.svg': 'image/svg+xml',
   '.json': 'application/json; charset=utf-8',
 };
+const PUBLIC_FILES = new Set(['index.html', 'app.js', 'style.css', 'Imagem/pokedex.png']);
 
 function toWebRequest(req, origin) {
   const headers = new Headers();
@@ -128,12 +129,12 @@ const server = http.createServer(async (req, res) => {
 
     const reqPath = decodeURIComponent(url.pathname === '/' ? '/index.html' : url.pathname);
     const relative = reqPath.replace(/^\/+/, '');
-    const filePath = path.resolve(ROOT_DIR, relative);
-    if (filePath !== ROOT_DIR && !filePath.startsWith(`${ROOT_DIR}${path.sep}`)) {
-      res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
-      res.end('Acesso negado.');
+    if (!PUBLIC_FILES.has(relative)) {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('Não encontrado.');
       return;
     }
+    const filePath = path.join(ROOT_DIR, relative);
 
     const stat = await fsp.stat(filePath).catch(() => null);
     if (!stat || !stat.isFile()) {
