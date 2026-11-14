@@ -690,8 +690,8 @@ if (typeof window !== 'undefined') {
     const response = await fetchPokeApi(`/api/pokedex?generation=${generation}`);
     if (!response.ok) throw new Error('A PokéAPI não respondeu. Tente novamente.');
     const data = await response.json();
-    const ids = data.pokemon_species.map(species => Number(species.url.match(/\/(\d+)\/?$/)?.[1])).filter(Number.isInteger);
-    if (!ids.length) throw new Error('Não há Pokémon disponíveis para esta geração.');
+    const ids = data.ids;
+    if (!Array.isArray(ids) || !ids.length || !ids.every(Number.isInteger)) throw new Error('Não há Pokémon disponíveis para esta geração.');
     state.pools.set(generation, ids);
     return ids;
   }
@@ -739,7 +739,7 @@ if (typeof window !== 'undefined') {
         const response = await fetchPokeApi(`/api/pokedex?pokemon=${id}`);
         if (!response.ok) continue;
         pokemon = await response.json();
-        artwork = pokemon.sprites?.other?.['official-artwork']?.front_default || pokemon.sprites?.front_default;
+        artwork = pokemon.artwork;
         if (artwork) break;
       }
       if (state.solo !== solo || state.mode !== 'solo') return;
@@ -822,7 +822,7 @@ if (typeof window !== 'undefined') {
     sound.play('hint');
     ui.hintButton.disabled = true;
     if (solo.hintsUsed === 0) {
-      const types = solo.pokemon.types.map(entry => TYPE_NAMES[entry.type.name] || entry.type.name);
+      const types = solo.pokemon.types.map(type => TYPE_NAMES[type] || type);
       solo.hints.push(`Tipo: ${types.join(' / ')}.`);
     } else {
       solo.hints.push(`Altura: ${(solo.pokemon.height / 10).toLocaleString('pt-BR')} m · Peso: ${(solo.pokemon.weight / 10).toLocaleString('pt-BR')} kg.`);

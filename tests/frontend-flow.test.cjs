@@ -64,7 +64,7 @@ test('partida solo descarta resposta tardia após voltar ao início e ignora cli
   let resolvePokemon;
   let pokemonRequests = 0;
   const { elements, handlers } = app(url => {
-    if (url.includes('/api/pokedex?generation=')) return Promise.resolve({ ok: true, json: async () => ({ pokemon_species: [{ url: 'https://pokeapi.co/api/v2/pokemon-species/25/' }] }) });
+    if (url.includes('/api/pokedex?generation=')) return Promise.resolve({ ok: true, json: async () => ({ ids: [25] }) });
     pokemonRequests++;
     return new Promise(resolve => { resolvePokemon = resolve; });
   });
@@ -73,7 +73,7 @@ test('partida solo descarta resposta tardia após voltar ao início e ignora cli
   await new Promise(setImmediate);
   assert.equal(pokemonRequests, 1);
   handlers.get('brandButton:click')();
-  resolvePokemon({ ok: true, json: async () => ({ id: 25, name: 'pikachu', sprites: { other: { 'official-artwork': { front_default: 'https://example.com/25.png' } } } }) });
+  resolvePokemon({ ok: true, json: async () => ({ id: 25, name: 'pikachu', artwork: 'https://example.com/25.png' }) });
   await Promise.all([first, second]);
   assert.equal(elements.get('homeScreen').hidden, false);
   assert.equal(elements.get('gameScreen').hidden, true);
@@ -128,17 +128,17 @@ test('falha de rede no solo mostra mensagem útil em português', async () => {
 test('solo respeita contagem de preparo de 2s e aceita pontuação por proximidade após liberar', async () => {
   const { elements, handlers, tick } = app(url => {
     if (url.includes('/api/pokedex?generation=')) {
-      return Promise.resolve({ ok: true, json: async () => ({ pokemon_species: [{ url: 'https://pokeapi.co/api/v2/pokemon-species/6/' }] }) });
+      return Promise.resolve({ ok: true, json: async () => ({ ids: [6] }) });
     }
     return Promise.resolve({
       ok: true,
       json: async () => ({
         id: 6,
         name: 'charizard',
-        types: [{ type: { name: 'fire' } }],
+        types: ['fire'],
         height: 17,
         weight: 905,
-        sprites: { other: { 'official-artwork': { front_default: 'https://example.com/6.png' } } },
+        artwork: 'https://example.com/6.png',
       }),
     });
   }, { withTimers: true });
