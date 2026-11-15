@@ -2,6 +2,8 @@
 
 Aplicação web responsiva de duelo de silhuetas Pokémon. Jogue sozinho contra a PokéAPI ou crie uma sala de competição em tempo real com até **8 treinadores** usando código de sala.
 
+🌐 **Acesse em produção:** [https://pokemon.gabrieldagostim.com](https://pokemon.gabrieldagostim.com)
+
 ![Tela inicial do Arena Dex](./docs/screenshots/home-desktop.png)
 
 ## Recursos Principais
@@ -64,6 +66,14 @@ npm test
 
 Valida pontuação exata/por proximidade, bônus de velocidade, preparo de turno, autenticação de sessão anônima, rate limiting, proxy de silhuetas e fluxo completo de UI.
 
+## Engenharia Assistida por IA: Antes, Falhas e Correções
+
+- **Antes (Baseline 2023–2024):** Aplicação estática simples na raiz (`index.html`, `app.js`, `style.css`) que consultava a PokéAPI direto do navegador, sem salas multiplayer, sem proteção de gabarito e sem suíte de testes.
+- **Falhas identificadas e correções aplicadas:**
+  1. **Exposição de arquivos fora de `public/` e servidor local permissivo:** tanto o `vercel.json` quanto `scripts/dev-server.mjs` precisavam restringir o acesso apenas aos assets públicos. Os arquivos estáticos foram movidos para `public/` com lista explícita `PUBLIC_FILES` e bind em `127.0.0.1` no servidor local (`tests/dev-server.test.mjs`).
+  2. **Condição de corrida no bônus de velocidade em Redis:** em respostas quase simultâneas, gravações no Upstash Redis podiam chegar fora de ordem e premiar pelo momento do commit em vez do tempo real de reação. Corrigido em `lib/game.mjs` ordenando por `reactionMs` com escrita atômica via script Lua `CAS` em `lib/store.mjs` (`tests/game.test.mjs`).
+  3. **Vazamento de resposta, falhas assíncronas e tráfego solo direto na PokéAPI:** a resposta passou a ficar restrita ao servidor até a revelação, com geração da silhueta preta via `sharp` em `api/image.js`, descarte de callbacks tardios após voltar à home em `public/app.js` e proxy enxuto com cache em `api/pokedex.js` (`tests/api.test.mjs`, `tests/pokedex.test.mjs`, `tests/frontend-flow.test.cjs`).
+
 ---
 
-Publicado originalmente em [pokemon.gabrieldagostim.com](https://pokemon.gabrieldagostim.com/). Dados e sprites por [PokéAPI](https://pokeapi.co/) e [PokeAPI/sprites](https://github.com/PokeAPI/sprites). Projeto de fã sem vínculo oficial com Pokémon.
+Publicado em [pokemon.gabrieldagostim.com](https://pokemon.gabrieldagostim.com). Dados e sprites por [PokéAPI](https://pokeapi.co/) e [PokeAPI/sprites](https://github.com/PokeAPI/sprites). Projeto de fã sem vínculo oficial com Pokémon.
